@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  chat-server:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/:ro
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+    networks:
+      - db-network
+
+  db:
+    image: postgres
+    env_file:
+      - ./.env.prod
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ 
+    networks:
+      - db-network
+      
+  pgadmin-prod:
+    image: dpage/pgadmin4
+    env_file:
+      - ./.env.prod
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - db-network
+
+networks: 
+  db-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
