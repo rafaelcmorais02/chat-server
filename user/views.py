@@ -15,7 +15,6 @@ def welcome(request):
 def userRegisterView(request):
     user_serializer = UserRegisterSerializer(data=request.data)
     if user_serializer.is_valid():
-        print('teste')
         user_serializer.save()
         resp = {
             'message': 'usuário cadastrado com sucesso',

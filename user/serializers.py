@@ -21,3 +21,5 @@ class UserRegisterSerializer(ModelSerializer):
             raise ValidationError(
                 {'password': 'As senhas devem ser iguais'})
         user.set_password(password)
+        user.save()
+        return user
