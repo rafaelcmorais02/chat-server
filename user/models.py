@@ -39,11 +39,12 @@ class MyUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_name = models.EmailField(
         max_length=100, verbose_name='Nome do usuário', unique=True)
-    first_name = models.CharField(max_length=100, unique=True)
-    last_name = models.CharField(max_length=100, unique=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    password_confirmation = models.CharField(max_length=100, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     objects = MyUserManager()
