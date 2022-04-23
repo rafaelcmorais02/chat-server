@@ -6,8 +6,8 @@ class UserRegisterSerializer(ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_name', 'first_name',
-                  'last_name', 'password', 'password_confirmation')
+        fields = ['user_name', 'first_name',
+                  'last_name', 'password', 'password_confirmation']
 
     def save(self):
         user = CustomUser(
@@ -23,3 +23,9 @@ class UserRegisterSerializer(ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class UserListSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'user_name']
