@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import MessageSerializer
 from rest_framework.response import Response
 from .services import MessageServices
+from .models import Message
 
 
 @api_view(['Post'])
@@ -20,3 +21,15 @@ def createMessageView(request):
         }
         return Response(resp, status=201)
     return Response({'message': 'erro no cadastro da mensagem'}, status=400)
+
+
+@api_view(['Get'])
+@authentication_classes([BearerTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def getMessagesView(request):
+    messages = Message.objects.all()
+    messages_serializer = MessageSerializer(messages, many=True)
+    resp = {
+        'data': MessageServices.returnAllMessages(messages_serializer.data, request.user.id)
+    }
+    return Response(resp, status=200)
