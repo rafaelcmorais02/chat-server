@@ -13,6 +13,6 @@ class MessageServices:
     def returnAllMessages(messages, id):
         new_messages = []
         for message in messages:
-            if message['user_sender'] == id:
+            if message['user_sender'] == id or message['user_receiver'] == id:
                 new_messages.append(message)
         return new_messages
