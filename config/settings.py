@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'message',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_extensions',
     'corsheaders',
 ]
 
